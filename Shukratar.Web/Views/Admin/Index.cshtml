@@ -1,0 +1,128 @@
+﻿@using Shukratar.Domain.Syndication
+@using Shukratar.Shared.Presentation
+@model Shukratar.Web.Models.StatisticsViewModel
+
+<div class="row">
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-success pull-right">Total</span>
+                <h5><i class="fa fa-rss" aria-hidden="true"></i> Feed News</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@Model.TotalNews</h1>
+                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i>
+                </div>
+                <small>Total news</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-success pull-right">Total</span>
+                <h5><i class="fa fa-code" aria-hidden="true"></i> Pages</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@Model.TotalPages</h1>
+                <div class="stat-percent font-bold text-danger">
+                    @Model.ErrorPages <i class="fa fa-bolt"></i>
+                </div>
+                <small>Total pages</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-info pull-right">Total</span>
+                <h5><i class="fa fa-film" aria-hidden="true"></i> Videos</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@Model.TotalVideosCount</h1>
+                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
+                </div>
+                <small>Total video news</small>
+                <div>
+                    <i class="fa fa-youtube-play fa"></i> @Model.YouTubeVideosMetadataCount / @Model.YouTubeVideosCount |
+                    <i class="fa fa-vimeo" aria-hidden="true"></i> |
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <a href="@Model.Job.LatestRun.OutputUrl" target="_blank"><span class="label label-primary pull-right">@Model.Job.LatestRun.Status</span></a>
+                    <h5>Crawler Job</h5>
+                </div>
+                <div class="ibox-content">
+                    <form method="post" action="@Url.Action("Run","Job")">
+                        <div class="stat-percent font-bold text-success">
+                            <i class="fa fa-clock-o"></i> @RelativeDateTime.ToString(Model.Job.LatestRun.StartTime)
+                            <small class="block">@Model.Job.LatestRun.Duration</small>
+                        </div>
+                        <button class="btn btn-primary"><i class="fa fa-play"></i> Run</button>
+                        <ul class="stat-list m-t-lg">
+                            <li>
+                                <h2 class="no-margins">2,346</h2>
+                                <small>Total orders in period</small>
+                                <div class="progress progress-mini">
+                                    <div class="progress-bar" style="width: 48%;"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+
+            <div class="ibox-title">
+                <h4 class="pull-left">Feeds (@Model.Feeds.Length)</h4>
+                <a href="@Url.Action("Add", "Feed")" class="btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-plus"></span></a>
+                <span class="clearfix"></span>
+            </div>
+
+            <div class="ibox-content">
+                <table class="table table-hover no-margins">
+                    <thead>
+                        <tr>
+                            <th>Feed</th>
+                            <th>Last Updated Date</th>
+                            <th>Status</th>
+                            <th>Total news</th>
+                            <th>With video</th>
+                            <th>With categories</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in @Model.Feeds)
+                        {
+                            <tr>
+                                <td><a href="@item.Feed.Link" target="_blank">@item.Feed.Link</a></td>
+                                <td><i class="fa fa-clock-o"></i> @RelativeDateTime.ToString(item.Feed.LastUpdatedDate)</td>
+                                <td><span class="label @(item.Feed.Status == FeedStatus.Success ? "label-primary" : "label-danger")">@(item.Feed.Status == FeedStatus.Success ? "Success" : "Error")</span></td>
+                                <td>@item.ItemsCount</td>
+                                <td>@item.VideoItemsCount</td>
+                                <td>@item.CategoryItemsCount</td>
+                                <td><a href="@Url.Action("Delete", "Feed", new {@item.Feed.Id})" class="text-muted"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

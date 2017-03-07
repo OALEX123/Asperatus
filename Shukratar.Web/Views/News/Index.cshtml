@@ -1,0 +1,186 @@
+﻿@using Shukratar.Web.Properties
+@model Shukratar.Web.Models.NewsViewModel
+@{
+    ViewBag.Title = "Search";
+}
+
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+
+        <h2>
+            @Model.TotalCount @Resources.ResultsFoundFor <span class="text-navy">'@Model.Query'</span>
+        </h2>
+        <small>@Resources.RequestTime  (@Model.RequestTime.TotalSeconds @Resources.Seconds)</small>
+        <div class="search-form">
+            <form>
+                <div class="input-group">
+                    <input type="text" name="Query" class="form-control input-lg" value="@Model.Query">
+                    <span class="input-group-btn">
+                        <button class="btn btn-lg btn-primary" type="submit">@Resources.Search</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Язык <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Index", new {@Model.Category, @Model.Period})">Все языки</a></li>
+                                @foreach (var language in @Model.Languages)
+                                {
+                                    <li><a href="@Url.Action("Index", new {Language = language, @Model.Category, @Model.Period})">@Resources.ResourceManager.GetString(@language)</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Категория <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Index", new { @Model.Period, @Model.Language })">Все категории</a></li>
+                                @foreach (var category in @Model.Categories)
+                                {
+                                    <li><a href="@Url.Action("Index", new {Category = category, @Model.Period, @Model.Language})">@category</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Период <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Index", new {@Model.Category, @Model.Language})">За все время</a></li>
+                                <li><a href="@Url.Action("Index", new {Period = 1, @Model.Category, @Model.Language})">За день</a></li>
+                                <li><a href="@Url.Action("Index", new {Period = 7, @Model.Category, @Model.Language})">За неделю</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="clearfix"></div>
+
+        @foreach (var videoNews in @Model.VideoNews)
+        {
+
+            <div class="hr-line-dashed"></div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <iframe src="@videoNews.Video.GetEmbedLink()"></iframe>
+                </div>
+                <div class="col-lg-8">
+
+                    <div class="tabs-container">
+                        <div>
+                            <ul class="nav nav-tabs">
+                                @foreach (var feedItem in videoNews.RelevantFeedItems)
+                                {
+                                    <li class="@(videoNews.RelevantFeedItems.First() == feedItem ? "active" : "")"><a data-toggle="tab" href="#tab-@feedItem.Id" aria-expanded="false">@feedItem.LinkHost</a></li>
+                                }
+                            </ul>
+                            <div class="tab-content">
+                                @foreach (var feedItem in videoNews.RelevantFeedItems)
+                                {
+                                    <div id="tab-@feedItem.Id" class="tab-pane @(videoNews.RelevantFeedItems.First() == feedItem ? "active" : "")">
+                                        <div class="panel-body">
+                                            <h2>
+                                                <a href="@feedItem.LinkUri" target="_blank">@feedItem.Title</a>
+                                            </h2>
+                                            <p class="small text-muted news-description">@feedItem.Description</p>
+                                            <i class="fa fa-clock-o"></i> <small>@feedItem.PublishDate.ToString("g")</small>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="tag-list">
+                        @foreach (var category in @videoNews.OriginalCategories)
+                        {
+                            <li><a href="@Url.Action("Index", new {Category = category})"><i class="fa fa-tag"></i> @category</a></li>
+                        }
+                        @foreach (var category in @videoNews.IntelligentCategories)
+                        {
+                            <li class="intelligent"><a href="@Url.Action("Index", new {Category = category})"><i class="fa fa-tag"></i> @category</a></li>
+                        }
+
+                    </ul>
+                    <div class="clearfix"></div>
+
+                    <div class="hr-line-dashed"></div>
+
+                    <h3>
+                        <i class="fa fa-youtube fa"></i> @(videoNews.Video?.Title)
+                    </h3>
+                    <p class="news-description">@(videoNews.Video?.Description)</p>
+                    <i class="fa fa-clock-o"></i> <small>@(videoNews.Video?.PublishDate?.ToString("g"))</small> |
+                    <i class="fa fa-eye"></i> @(videoNews.Video?.Statistics.ViewCount) |
+                    <i class="fa fa-thumbs-up"></i> @(videoNews.Video?.Statistics.LikeCount) |
+                    <i class="fa fa-thumbs-down"></i> @(videoNews.Video?.Statistics.DislikeCount) |
+                    <i class="fa fa-comment"></i> @(videoNews.Video?.Statistics.CommentCount)
+                    <hr>
+                    <div class="btn-group">
+                        @if (@videoNews.VideoFiles.Any())
+                        {
+                            <div class="btn-group">
+                                <a data-toggle="dropdown" class="btn btn-primary btn-sm dropdown-toggle" aria-expanded="true"><i class="fa fa-download"></i> @Resources.Download <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    @foreach (var videoFile in @videoNews.VideoFiles)
+                                    {
+                                        <li>
+                                            <a href="@videoFile.DownloadUrl" download>
+                                                <i class="fa fa-file-video-o" aria-hidden="true"></i> @videoFile.VideoExtension (@(videoFile.Resolution)p) | <i class="fa fa-file-audio-o" aria-hidden="true"></i> @videoFile.AudioExtension (@(videoFile.AudioBitrate)bps)
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+
+
+                            <div class="btn-group">
+                                <a data-toggle="dropdown" class="btn btn-default btn-sm dropdown-toggle" aria-expanded="true"><i class="fa fa-link"></i> @Resources.CopyLink <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    @foreach (var videoFile in @videoNews.VideoFiles)
+                                    {
+                                        <li>
+                                            <a onclick="copyToClipboard('@videoFile.DownloadUrl')">
+                                                <i class="fa fa-file-video-o" aria-hidden="true"></i> @videoFile.VideoExtension (@(videoFile.Resolution)p) | <i class="fa fa-file-audio-o" aria-hidden="true"></i> @videoFile.AudioExtension (@(videoFile.AudioBitrate)bps)
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="hr-line-dashed"></div>
+
+        @if (Model.Pager.EndPage > 1)
+        {
+            <div class="text-center">
+                <div class="btn-group">
+                    @if (Model.Pager.CurrentPage > 1)
+                    {
+                        <a class="btn btn-white" href="@Url.Action("Index", new { Page = Model.Pager.CurrentPage - 1, Model.Query, Model.Category, @Model.Language, @Model.Period })"><i class="fa fa-chevron-left"></i></a>
+                    }
+
+                    @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                    {
+                        <a class="btn btn-white @(page == Model.Pager.CurrentPage ? "active" : "")" href="@Url.Action("Index", new { Page = @page, Model.Query, Model.Category, @Model.Language, @Model.Period })">@page</a>
+                    }
+                    @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+                    {
+                        <a class="btn btn-white" href="@Url.Action("Index", new {Page = Model.Pager.CurrentPage + 1, Model.Query, Model.Category, @Model.Language, @Model.Period})"><i class="fa fa-chevron-right"></i> </a>
+                    }
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
