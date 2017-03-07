@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shukratar.Crawler", "Shukratar.Crawler\Shukratar.Crawler.csproj", "{1C6EFA9F-24D4-4EA8-8B77-948340B9F282}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shukratar.Domain", "Shukratar.Domain\Shukratar.Domain.csproj", "{D71B3D83-0AF9-4CA4-94BE-29175DCE6A3E}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Shukratar.Database", "Shukratar.Database\Shukratar.Database.sqlproj", "{969BC92C-739A-4D21-B55E-8BB1A7DB3C70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shukratar.Data.Mapping", "Shukratar.Data.Mapping\Shukratar.Data.Mapping.csproj", "{0696C48A-7C83-4081-8860-EC673B054E5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shukratar.Shared", "Shukratar.Shared\Shukratar.Shared.csproj", "{DD1EC298-2DB7-47EE-BC41-9EC60150EDE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shukratar.Web", "Shukratar.Web\Shukratar.Web.csproj", "{8B18B1BE-62F4-49D8-9B0E-B07F1B9734BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C6EFA9F-24D4-4EA8-8B77-948340B9F282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C6EFA9F-24D4-4EA8-8B77-948340B9F282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C6EFA9F-24D4-4EA8-8B77-948340B9F282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C6EFA9F-24D4-4EA8-8B77-948340B9F282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D71B3D83-0AF9-4CA4-94BE-29175DCE6A3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D71B3D83-0AF9-4CA4-94BE-29175DCE6A3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D71B3D83-0AF9-4CA4-94BE-29175DCE6A3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D71B3D83-0AF9-4CA4-94BE-29175DCE6A3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{969BC92C-739A-4D21-B55E-8BB1A7DB3C70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{969BC92C-739A-4D21-B55E-8BB1A7DB3C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{969BC92C-739A-4D21-B55E-8BB1A7DB3C70}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{969BC92C-739A-4D21-B55E-8BB1A7DB3C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{969BC92C-739A-4D21-B55E-8BB1A7DB3C70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{969BC92C-739A-4D21-B55E-8BB1A7DB3C70}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0696C48A-7C83-4081-8860-EC673B054E5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0696C48A-7C83-4081-8860-EC673B054E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0696C48A-7C83-4081-8860-EC673B054E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0696C48A-7C83-4081-8860-EC673B054E5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD1EC298-2DB7-47EE-BC41-9EC60150EDE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD1EC298-2DB7-47EE-BC41-9EC60150EDE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD1EC298-2DB7-47EE-BC41-9EC60150EDE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD1EC298-2DB7-47EE-BC41-9EC60150EDE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B18B1BE-62F4-49D8-9B0E-B07F1B9734BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B18B1BE-62F4-49D8-9B0E-B07F1B9734BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B18B1BE-62F4-49D8-9B0E-B07F1B9734BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B18B1BE-62F4-49D8-9B0E-B07F1B9734BF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
