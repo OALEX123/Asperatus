@@ -96,29 +96,32 @@
             <div class="ibox-content">
                 <table class="table table-hover no-margins">
                     <thead>
-                        <tr>
-                            <th>Feed</th>
-                            <th>Last Updated Date</th>
-                            <th>Status</th>
-                            <th>Total news</th>
-                            <th>With video</th>
-                            <th>With categories</th>
-                        </tr>
+                    <tr>
+                        <th>Feed</th>
+                        <th>Last Updated Date</th>
+                        <th>Status</th>
+                        <th>Total news</th>
+                        <th>With video</th>
+                        <th>With categories</th>
+                    </tr>
                     </thead>
                     <tbody>
 
-                        @foreach (var item in @Model.Feeds)
-                        {
-                            <tr>
-                                <td><a href="@item.Feed.Link" target="_blank">@item.Feed.Link</a></td>
-                                <td><i class="fa fa-clock-o"></i> @RelativeDateTime.ToString(item.Feed.LastUpdatedDate)</td>
-                                <td><span class="label @(item.Feed.Status == FeedStatus.Success ? "label-primary" : "label-danger")">@(item.Feed.Status == FeedStatus.Success ? "Success" : "Error")</span></td>
-                                <td>@item.ItemsCount</td>
-                                <td>@item.VideoItemsCount</td>
-                                <td>@item.CategoryItemsCount</td>
-                                <td><a href="@Url.Action("Delete", "Feed", new {@item.Feed.Id})" class="text-muted"><i class="fa fa-trash"></i></a></td>
-                            </tr>
-                        }
+                    @foreach (var item in @Model.Feeds)
+                    {
+                        <tr>
+                            <td><a href="@item.Feed.Link" target="_blank">@item.Feed.Link</a></td>
+                            <td><i class="fa fa-clock-o"></i> @RelativeDateTime.ToString(item.Feed.LastUpdatedDate)</td>
+                            <td><span class="label @(item.Feed.Status == FeedStatus.Success ? "label-primary" : "label-danger")">@(item.Feed.Status == FeedStatus.Success ? "Success" : "Error")</span></td>
+                            <td>@item.ItemsCount</td>
+                            <td>@item.VideoItemsCount</td>
+                            <td>@item.CategoryItemsCount</td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Feed", new {@id = @item.Feed.Id})" class="text-muted"><i class="fa fa-edit"></i></a>
+                                <a href="javascript:void(0);" onclick="javascript:removeFeed(@item.Feed.Id);" class="text-muted"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
                     </tbody>
                 </table>
             </div>
@@ -126,3 +129,11 @@
     </div>
 
 </div>
+
+<script language="javascript">
+    function removeFeed(feedId) {
+        if (confirm('Удалить этот канал?')) {
+            location.href = '@Url.Action("Delete", "Feed")' + '/' + feedId;
+        }
+    }
+</script>

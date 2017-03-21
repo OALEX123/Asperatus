@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Shukratar.Domain.Syndication;
 using Shukratar.Domain.Video;
@@ -26,9 +27,11 @@ namespace Shukratar.Web.Controllers
 
         public ViewResult Index()
         {
-            var jobState = _jobService.GetState();
+            //var jobState = _jobService.GetState();
+            //return View(new StatisticsViewModel(_feedItems, _feeds, jobState, _videos));
 
-            return View(new StatisticsViewModel(_feedItems, _feeds, jobState, _videos));
+            return View(new StatisticsViewModel(_feedItems, _feeds, new Job { LatestRun = new JobRun { Name = "LatestRun" }, Name = "Job", RunCommand = "RunCommand" }, _videos));
+
         }
     }
 }

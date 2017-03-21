@@ -67,6 +67,8 @@
     <Compile Include="News\VideoNewsProvider.cs" />
     <Compile Include="Syndication\Crawler\FeedCrawlingJob.cs" />
     <Compile Include="Syndication\Crawler\IFeedCrawlingJob.cs" />
+    <Compile Include="Syndication\FeedCategory.cs" />
+    <Compile Include="Syndication\FeedCountry.cs" />
     <Compile Include="Video\Audio\AudioFormat.cs" />
     <Compile Include="Video\VideoFormat.cs" />
     <Compile Include="Video\VideoFile.cs" />

@@ -28,6 +28,11 @@ namespace Shukratar.Data.Mapping.Configuration
             Property(x => x.LastUpdatedDate).HasColumnName("LastUpdatedDate").IsOptional().HasColumnType("datetime");
             Property(x => x.WebsiteId).HasColumnName("WebsiteId").IsRequired().HasColumnType("int");
             Property(x => x.Status).HasColumnName("Status").IsOptional().HasColumnType("int");
+
+            // link on category
+            HasRequired(a => a.Category).WithMany(b => b.Feeds).HasForeignKey(c => c.CategoryId);
+            // link on country
+            HasRequired(a => a.Country).WithMany(b => b.Feeds).HasForeignKey(c => c.CountryId);
         }
     }
 }

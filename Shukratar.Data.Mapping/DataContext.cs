@@ -7,19 +7,22 @@ namespace Shukratar.Data.Mapping
     {
         public DataContext()
         {
-            Database.Initialize(true);
+            //Database.SetInitializer<DataContext>(new DbInitializer());
+            //Database.Initialize(true);
         }
 
         public DataContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
-            //Database.SetInitializer<DataContext>(null);
-            Database.Initialize(true);
+            //Database.SetInitializer<DataContext>(new DbInitializer());
+            //Database.Initialize(true);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new FeedConfiguration());
             modelBuilder.Configurations.Add(new FeedItemConfiguration());
+            modelBuilder.Configurations.Add(new FeedCategoryConfiguration());
+            modelBuilder.Configurations.Add(new FeedCountryConfiguration());
             modelBuilder.Configurations.Add(new NewsPageConfiguration());
             modelBuilder.Configurations.Add(new VideoConfiguration());
             modelBuilder.Configurations.Add(new VideoFileConfiguration());

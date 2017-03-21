@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model Shukratar.Web.Models.ManageFeedViewModel
 
 @{
     ViewBag.Title = "title";
@@ -6,17 +6,9 @@
 
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h4>Feed</h4>
+        <h4>Add Feed</h4>
     </div>
     <div class="ibox-content">
-        <form action="@Url.Action("Submit")" method="post">
-            <div class="form-group">
-                <label class="control-label">Link</label>
-                <input type="text" class="form-control" name="link" required="true" placeholder="ex. http://supervesti.ru/rss.xml">
-            </div>
-            <hr/>
-            <button class="btn btn-default pull-right" type="submit">Save</button>
-            <div class="clearfix"></div>
-        </form>
+        @Html.Partial("_ManageFeedForm", Model)
     </div>
 </div>

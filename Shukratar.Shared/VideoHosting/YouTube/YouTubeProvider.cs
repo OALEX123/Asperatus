@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
@@ -23,7 +24,8 @@ namespace Shukratar.Shared.VideoHosting.YouTube
 
         public YouTubeProvider(X509Certificate2 x509Certificate2)
         {
-            const string serviceAccountEmail = "shukratar@shukratar.iam.gserviceaccount.com";
+            // const string serviceAccountEmail = "shukratar@shukratar.iam.gserviceaccount.com";
+            const string serviceAccountEmail = "asperatus@asperatus-161707.iam.gserviceaccount.com";
 
             var certificate = x509Certificate2;
 
@@ -44,19 +46,26 @@ namespace Shukratar.Shared.VideoHosting.YouTube
         {
             get
             {
-                var name = typeof (YouTubeProvider).Namespace + ".Google.Certificate.p12";
+                //var name = typeof(YouTubeProvider).Namespace + ".Google.Certificate.p12";
 
-                var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name);
+                //var names = Assembly.GetExecutingAssembly();
 
-                byte[] byts;
+                //var names2 = System.Reflection.Assembly.GetEntryAssembly().
+                //    GetManifestResourceNames();
 
-                using (var memoryStream = new MemoryStream())
-                {
-                    stream?.CopyTo(memoryStream);
-                    byts = memoryStream.ToArray();
-                }
+                
 
-                return new X509Certificate2(byts, "notasecret",
+                //var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name);
+
+                //byte[] bytes;
+
+                //using (var memoryStream = new MemoryStream())
+                //{
+                //    stream?.CopyTo(memoryStream);
+                //    bytes = memoryStream.ToArray();
+                //}
+
+                return new X509Certificate2(Shukratar.Shared.Properties.Resources.Google_Certificate_p12, "notasecret",
                     X509KeyStorageFlags.MachineKeySet |
                     X509KeyStorageFlags.PersistKeySet |
                     X509KeyStorageFlags.Exportable);

@@ -1,0 +1,14 @@
+﻿@model Shukratar.Web.Models.ManageFeedViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h4>Edit Feed</h4>
+    </div>
+    <div class="ibox-content">
+        @Html.Partial("_ManageFeedForm", Model)
+    </div>
+</div>

@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="Configuration\CategoryGramConfiguration.cs" />
     <Compile Include="Configuration\CategoryConfiguration.cs" />
+    <Compile Include="Configuration\FeedCountryConfiguration.cs" />
+    <Compile Include="Configuration\FeedCategoryConfiguration.cs" />
     <Compile Include="Configuration\VideoCategoryConfiguration.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />
     <Compile Include="Configuration\VideoFileConfiguration.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="Configuration\FeedItemConfiguration.cs" />
     <Compile Include="Configuration\FeedConfiguration.cs" />
     <Compile Include="DataContext.cs" />
+    <Compile Include="DbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

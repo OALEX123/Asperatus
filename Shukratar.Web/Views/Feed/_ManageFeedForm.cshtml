@@ -1,0 +1,46 @@
+﻿@model Shukratar.Web.Models.ManageFeedViewModel
+
+<form action="@Url.Action("Submit")" method="post">
+    <div class="form-group">
+        <label class="control-label">Link</label>
+        <input type="text" class="form-control" name="link" required="true" value="@(Model.Feed?.Link)" placeholder="ex. http://supervesti.ru/rss.xml">
+    </div>
+    <input type="hidden" name="Id" value="@(Model.Feed?.Id)"/>
+    <div class="form-group">
+        <label class="control-label">Category</label>
+        <select class="form-control" name="categoryId">
+            @foreach (var category in Model.Categories)
+            {
+                if (category.Id == Model.Feed?.CategoryId)
+                {
+                    <option selected="selected" value="@category.Id">@category.Name</option>
+                }
+                else
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Country</label>
+        <select class="form-control" name="countryId">
+            @foreach (var country in Model.Countries)
+            {
+                if (country.Id == Model.Feed?.CountryId)
+                {
+                    <option selected="selected" value="@country.Id">@country.Name</option>
+                }
+                else
+                {
+                    <option value="@country.Id">@country.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <hr />
+    <button class="btn btn-default pull-right" type="submit">Save</button>
+    <div class="clearfix"></div>
+</form>
+

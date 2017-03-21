@@ -39,7 +39,7 @@ namespace Shukratar.Data.Mapping.Configuration
             Property(x => x.Language.Code).HasColumnName("Language");
 
             // Foreign keys
-            HasRequired(a => a.Feed).WithMany(b => b.FeedItems).HasForeignKey(c => c.FeedId);
+            HasRequired(a => a.Feed).WithMany(b => b.FeedItems).HasForeignKey(c => c.FeedId).WillCascadeOnDelete(true);
             // FK_dbo.FeedItems_dbo.Feeds_FeedId
         }
     }

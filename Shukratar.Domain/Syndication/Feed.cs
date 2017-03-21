@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Shukratar.Domain.Web;
 
 namespace Shukratar.Domain.Syndication
 {
@@ -29,6 +28,10 @@ namespace Shukratar.Domain.Syndication
 
         public int WebsiteId { get; set; }
 
+        public int CountryId { get; set; }
+
+        public int CategoryId { get; set; }
+
         public DateTime? LastUpdatedDate { get; set; }
 
         public FeedStatus? Status { get; set; }
@@ -40,5 +43,9 @@ namespace Shukratar.Domain.Syndication
                 Link = link
             };
         }
+
+        public virtual FeedCountry Country { get; set; }
+
+        public virtual FeedCategory Category { get; set; }
     }
 }
