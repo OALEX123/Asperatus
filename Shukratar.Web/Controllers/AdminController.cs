@@ -27,10 +27,20 @@ namespace Shukratar.Web.Controllers
 
         public ViewResult Index()
         {
-            //var jobState = _jobService.GetState();
-            //return View(new StatisticsViewModel(_feedItems, _feeds, jobState, _videos));
+            var jobState = _jobService.GetState();
 
-            return View(new StatisticsViewModel(_feedItems, _feeds, new Job { LatestRun = new JobRun { Name = "LatestRun" }, Name = "Job", RunCommand = "RunCommand" }, _videos));
+            var job = new Job
+            {
+                Name = "Service Job",
+                //RunCommand = "RunCommand",
+                RunState = jobState.RunState,
+                LatestRun = new JobRun
+                {
+                    Name = "LatestRun"
+                }
+            };
+
+            return View(new StatisticsViewModel(_feedItems, _feeds, job, _videos));
 
         }
     }

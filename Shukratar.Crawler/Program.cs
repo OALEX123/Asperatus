@@ -13,7 +13,7 @@ namespace Shukratar.Crawler
     {
         static void Main(string[] args)
         {
-            var appContainer = new AppContainer();
+            var appContainer = new AppContainer(isFromWin: true);
 
             DbInterception.Add(new TraceDbCommandInterceptor());
 

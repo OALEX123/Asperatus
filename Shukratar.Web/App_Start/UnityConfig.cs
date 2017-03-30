@@ -10,7 +10,7 @@ namespace Shukratar.Web
     public class UnityConfig
     {
         private static readonly Lazy<IUnityContainer> Container =
-            new Lazy<IUnityContainer>(() => new AppContainer(new PerRequestLifetimeManager()));
+            new Lazy<IUnityContainer>(() => new AppContainer(new PerRequestLifetimeManager(), false));
 
         /// <summary>
         /// Gets the configured Unity container.

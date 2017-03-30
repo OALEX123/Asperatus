@@ -1,11 +1,10 @@
-using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Configuration;
 using Microsoft.AspNet.Identity;
 using Microsoft.Practices.Unity;
 using Shukratar.Data.Mapping;
 using Shukratar.Domain.Category;
-using Shukratar.Domain.Category.Intelligence;
 using Shukratar.Domain.Common;
 using Shukratar.Domain.Html;
 using Shukratar.Domain.Language;
@@ -31,11 +30,11 @@ namespace Shukratar.Shared.Bootstrap
 {
     public class AppContainer : UnityContainer, IContainer
     {
-        public AppContainer() : this(new PerThreadLifetimeManager())
+        public AppContainer(bool isFromWin = false) : this(new PerThreadLifetimeManager(), isFromWin)
         {
         }
 
-        public AppContainer(LifetimeManager lifetimeManager)
+        public AppContainer(LifetimeManager lifetimeManager, bool isFromWin = false)
         {
             var container = this;
 
@@ -58,15 +57,21 @@ namespace Shukratar.Shared.Bootstrap
             container.RegisterType<ILanguageProvider, LanguageProvider>();
             container.RegisterType<ILemmatizer, Lemmatizer>();
 
-            container.RegisterType<IJobService, JobService>(
-                new InjectionConstructor(new Uri("https://asperatus.scm.azurewebsites.net"), "", ""));
+            //container.RegisterType<IJobService, AzureJobService>(
+            //    new InjectionConstructor(new Uri("https://asperatus.scm.azurewebsites.net"), "", ""));
+            if (!isFromWin)
+            {
+                container.RegisterType<IJobService, WinJobService>(
+                    new InjectionConstructor(ConfigurationManager.AppSettings["Crawler.ServiceProcessName"], ConfigurationManager.AppSettings["Crawler.ServiceExecutionPath"]));
+            }
+
 
             container.RegisterType<IPageCrawlingJob, PageCrawlingJob>();
 
             container.RegisterType<DbContext, DataContext>(lifetimeManager, new InjectionConstructor());
 
-            container.RegisterType(typeof (IQueryable<>), typeof (Repository<>));
-            container.RegisterType(typeof (IRepository<>), typeof (Repository<>));
+            container.RegisterType(typeof(IQueryable<>), typeof(Repository<>));
+            container.RegisterType(typeof(IRepository<>), typeof(Repository<>));
             container.RegisterType<IUnitOfWork, UnitOfWork>();
 
             container.RegisterInstance<IContainer>(this);

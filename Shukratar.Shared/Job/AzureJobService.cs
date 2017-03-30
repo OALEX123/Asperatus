@@ -8,12 +8,15 @@ using Newtonsoft.Json.Serialization;
 
 namespace Shukratar.Shared.Job
 {
-    public class JobService : IJobService
+    /// <summary>
+    /// Job service runner (hosted on azure)
+    /// </summary>
+    public class AzureJobService : IJobService
     {
         private readonly HttpClient _client;
         private readonly JsonSerializerSettings _settings;
 
-        public JobService(Uri address, string username, string password)
+        public AzureJobService(Uri address, string username, string password)
         {
             _client = new HttpClient { BaseAddress = new Uri(address.OriginalString + "/api/") };
 

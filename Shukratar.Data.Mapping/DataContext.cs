@@ -8,13 +8,13 @@ namespace Shukratar.Data.Mapping
         public DataContext()
         {
             //Database.SetInitializer<DataContext>(new DbInitializer());
-            //Database.Initialize(true);
+            Database.Initialize(true);
         }
 
         public DataContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
             //Database.SetInitializer<DataContext>(new DbInitializer());
-            //Database.Initialize(true);
+            Database.Initialize(true);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
